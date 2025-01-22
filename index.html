@@ -5,10 +5,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
   body {
-    font-family: 'Arial', sans-serif; /* Choose a modern font */
+    font-family: 'Arial', sans-serif; 
     margin: 0;
-    overflow: hidden; /* Prevent scrollbars during animation */
-    background-color: #f4f4f4;
+    overflow: hidden; 
+    background-color: #f4f4f4; 
+    background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'), 
+                      url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80');
+    background-size: cover, cover;
+    background-position: center, center;
+    animation: backgroundAnimation 15s ease-in-out infinite alternate;
+  }
+
+  @keyframes backgroundAnimation {
+    0% {
+      background-blend-mode: multiply; 
+    }
+    50% {
+      background-blend-mode: overlay;
+    }
+    100% {
+      background-blend-mode: hard-light; 
+    }
   }
 
   .container {
@@ -18,7 +35,7 @@
     justify-content: center;
     min-height: 100vh;
     text-align: center;
-    perspective: 1000px; /* For 3D effect */
+    perspective: 1000px; 
   }
 
   h1 {
@@ -41,22 +58,22 @@
     align-items: center;
     flex-wrap: wrap;
     margin-top: 20px;
-    perspective: 1000px; /* For 3D effect */
+    perspective: 1000px; 
   }
 
   .skill-item {
     margin: 20px;
-    transform-style: preserve-3d; /* For 3D effect */
+    transform-style: preserve-3d; 
     transition: transform 0.5s;
   }
 
   .skill-item:hover {
-    transform: rotateY(15deg); /* Tilt on hover */
+    transform: rotateY(15deg); 
   }
 
   .skill-icon {
     font-size: 3em;
-    color: #007bff; /* Blue color for icons */
+    color: #007bff; 
     margin-bottom: 10px;
   }
 
@@ -68,7 +85,7 @@
   .links {
     margin-top: 30px;
     animation: fadeInUp 1s ease forwards;
-    animation-delay: 1s; /* Delay animation */
+    animation-delay: 1s; 
   }
 
   .links a {
@@ -93,8 +110,6 @@
       transform: translateY(0);
     }
   }
-
-  /* Add more styles for other elements and animations as needed */
 </style>
 </head>
 <body>
@@ -146,7 +161,6 @@
   </div>
 
   <script>
-    // JavaScript for animation (same as before)
     const animatedTexts = document.querySelectorAll('.animated-text');
 
     function showText(element, index) {
