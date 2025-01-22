@@ -118,6 +118,23 @@ LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
       clear: "",
     };
 
+    function displayDefaultContent() {
+      const defaultContent = `
+> about
+${commands.about}
+
+> skills
+${commands.skills}
+
+> contact
+${commands.contact}
+
+Type a command (about, skills, contact, clear) for interactivity.\n
+`;
+      outputElement.innerHTML = defaultContent;
+      outputElement.scrollTop = outputElement.scrollHeight;
+    }
+
     inputElement.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         const input = inputElement.value.trim();
@@ -138,6 +155,9 @@ LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
       }
       outputElement.scrollTop = outputElement.scrollHeight;
     }
+
+    // Display default content when the page loads
+    displayDefaultContent();
   </script>
 </body>
 </html>
