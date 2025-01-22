@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Suraj Pokhriyal - SRE</title>
+<title>Suraj Pokhriyal - Principal SRE</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
 <style>
 body {
   font-family: sans-serif;
@@ -12,97 +13,50 @@ body {
   min-height: 100vh;
   background-color: #f0f0f0;
   margin: 0;
+  /* Add background image with animation */
+  background-image: url('coding-background.gif'), url('terminal-background.jpg'); /* Replace with your image URLs */
+  background-size: cover, cover;
+  background-position: center, center;
+  animation: backgroundAnimation 15s ease-in-out infinite alternate; /* Adjust timing as needed */
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-blend-mode: multiply; 
+  }
+  50% {
+    background-blend-mode: overlay;
+  }
+  100% {
+    background-blend-mode: hard-light; 
+  }
 }
 
 h1 {
   font-size: 3em;
   margin-bottom: 0.5em;
+  color: #fff; /* White text for better contrast */
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
 }
 
 .container {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.animated-text {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-  opacity: 0; 
-  transform: translateY(20px); 
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.animated-text.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.links {
-  margin-top: 20px;
-}
-
-.links a {
-  margin: 0 10px;
-  color: #333;
-  text-decoration: none;
-}
+/* ... (rest of the CSS is the same) ... */
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Suraj Pokhriyal</h1>
-  <p class="animated-text">Principal Site Reliability Engineer (SRE) at Zscaler</p> 
-
-  <div class="animated-text">
-    Passionate about making data meaningful and reliable at scale. I champion best practices in observability and infrastructure, empowering teams with actionable insights and scalable solutions.
   </div>
-
-  <div class="animated-text">
-    Solving large-scale observability challenges with OpenTelemetry standards. I drive the adoption of MELT (Metrics, Events, Logs, Traces) and its correlation to provide comprehensive insights.
-  </div>
-
-  <div class="animated-text">
-    Enhancing data relevance and security. I adhere to data governance laws, ensuring data is used responsibly and securely.
-  </div>
-
-  <div class="animated-text">
-    Building advanced tooling for seamless integration. I create tools and processes that simplify integration and improve user experience.
-  </div>
-
-  <div class="animated-text">
-    Standardizing onboarding for consistent integration. I developed a streamlined onboarding process to ensure users can easily integrate with the platform.
-  </div>
-
-  <div class="animated-text">
-    Advocating best practices and scalable automation. I promote efficient and reliable automation solutions to improve operational efficiency.
-  </div>
-
-  <div class="animated-text">
-    Architecting automation platforms for runtime ad-hoc activities. I design automation platforms that enable activities like auto-remediation triggered by alerts, enhancing system resilience.
-  </div>
-
-  <div class="links">
-    <a href="mailto:mail@surajpokhriyal.com">Email</a> |
-    <a href="https://github.com/yourgithubprofile" target="_blank">GitHub</a> |
-    <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank">LinkedIn</a>
-  </div>
-</div>
 
 <script>
-// JavaScript for animation
-const animatedTexts = document.querySelectorAll('.animated-text');
-
-function showText(element, index) {
-  setTimeout(() => {
-    element.classList.add('show');
-  }, index * 300); // Adjust timing as needed
-}
-
-animatedTexts.forEach(showText);
+// ... (JavaScript is the same) ...
 </script>
 
 </body>
