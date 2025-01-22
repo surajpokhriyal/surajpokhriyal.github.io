@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Suraj Pokhriyal - Principal SRE</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-  body {
-    font-family: 'Courier New', monospace;
-    margin: 0;
-    overflow: hidden;
-    background-color: #000;
-    color: #0f0;
-  }
+  <title>Suraj Pokhriyal - Principal SRE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+      color: #0f0;
+    }
 
-  .terminal {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 90%;
-    max-width: 800px;
-    margin: 5vh auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #0f0;
-    border-radius: 8px;
-    height: 70vh;
-    box-shadow: 0 0 10px #0f0;
-    overflow: hidden;
-  }
+    .terminal {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 90%;
+      max-width: 800px;
+      margin: 5vh auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #0f0;
+      border-radius: 8px;
+      height: 70vh;
+      box-shadow: 0 0 10px #0f0;
+      overflow: hidden;
+    }
 
-  .output {
-    flex-grow: 1;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    line-height: 1.5em;
-  }
+    .output {
+      flex-grow: 1;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.5em;
+    }
 
-  .input-area {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
+    .input-area {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-  .input-area span {
-    color: #0f0;
-  }
+    .input-area span {
+      color: #0f0;
+    }
 
-  .input-field {
-    background: none;
-    border: none;
-    outline: none;
-    color: #0f0;
-    font-size: 1em;
-    flex-grow: 1;
-    caret-color: #0f0;
-  }
+    .input-field {
+      background: none;
+      border: none;
+      outline: none;
+      color: #0f0;
+      font-size: 1em;
+      flex-grow: 1;
+      caret-color: #0f0;
+    }
 
-  .cursor {
-    display: inline-block;
-    background: #0f0;
-    width: 10px;
-    height: 18px;
-    animation: blink 0.8s steps(2) infinite;
-  }
+    .cursor {
+      display: inline-block;
+      background: #0f0;
+      width: 10px;
+      height: 18px;
+      animation: blink 0.8s steps(2) infinite;
+    }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
 
-  .highlight {
-    color: #fff;
-    text-shadow: 0 0 5px #0f0;
-  }
+    .highlight {
+      color: #fff;
+      text-shadow: 0 0 5px #0f0;
+    }
 
-  a {
-    color: #0f0;
-    text-decoration: none;
-  }
+    a {
+      color: #0f0;
+      text-decoration: none;
+    }
 
-  a:hover {
-    color: #fff;
-  }
-</style>
+    a:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
   <div class="terminal">
@@ -118,21 +118,36 @@ LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
       clear: "",
     };
 
-    function displayDefaultContent() {
-      const defaultContent = `
-> about
-${commands.about}
-
-> skills
-${commands.skills}
-
-> contact
-${commands.contact}
-
-Type a command (about, skills, contact, clear) for interactivity.\n
+    const asciiArt = `
+███████╗██╗   ██╗██████╗  █████╗      ██████╗ ██████╗ ██╗  ██╗███████╗██╗   ██╗██╗██╗     
+██╔════╝██║   ██║██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗██║ ██╔╝██╔════╝██║   ██║██║██║     
+█████╗  ██║   ██║██████╔╝███████║    ██║     ██║   ██║█████╔╝ █████╗  ██║   ██║██║██║     
+██╔══╝  ██║   ██║██╔═══╝ ██╔══██║    ██║     ██║   ██║██╔═██╗ ██╔══╝  ██║   ██║██║██║     
+██║     ╚██████╔╝██║     ██║  ██║    ╚██████╗╚██████╔╝██║  ██╗███████╗╚██████╔╝██║███████╗
+╚═╝      ╚═════╝ ╚═╝     ╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝
 `;
-      outputElement.innerHTML = defaultContent;
-      outputElement.scrollTop = outputElement.scrollHeight;
+
+    function autoTypeText(text, callback) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          outputElement.innerHTML += text[i++];
+          outputElement.scrollTop = outputElement.scrollHeight;
+          setTimeout(type, 50);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    function displayDefaultContent() {
+      outputElement.innerHTML = `${asciiArt}\n`;
+      autoTypeText(`> about\n${commands.about}\n\n`, () => {
+        autoTypeText(`> skills\n${commands.skills}\n\n`, () => {
+          autoTypeText(`> contact\n${commands.contact}\n\nType a command (about, skills, contact, clear) for interactivity.\n`);
+        });
+      });
     }
 
     inputElement.addEventListener('keydown', (event) => {
@@ -156,7 +171,7 @@ Type a command (about, skills, contact, clear) for interactivity.\n
       outputElement.scrollTop = outputElement.scrollHeight;
     }
 
-    // Display default content when the page loads
+    // Display the default content with animation on load
     displayDefaultContent();
   </script>
 </body>
