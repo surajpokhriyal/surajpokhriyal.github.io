@@ -5,151 +5,139 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
   body {
-    font-family: 'Courier New', monospace; /* Terminal font */
+    font-family: 'Courier New', monospace;
     margin: 0;
     overflow: hidden;
-    background-color: #000; /* Black background */
-    color: #fff; /* White text color */
+    background-color: #000;
+    color: #0f0;
   }
 
-  .container {
+  .terminal {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: left; /* Align text to the left like a terminal */
-    width: 80%;
+    justify-content: flex-start;
+    width: 90%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 5vh auto;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
-    border: 2px solid #0f0; /* Green border like a terminal */
-    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #0f0;
+    border-radius: 8px;
+    height: 70vh;
+    box-shadow: 0 0 10px #0f0;
+    overflow: hidden;
   }
 
-  h1 {
-    font-size: 2em;
-    margin-bottom: 0.5em;
-    color: #0f0; /* Green text color for the title */
-    text-shadow: 1px 1px 2px rgba(0, 255, 0, 0.5);
-    animation: typing 2s steps(20) forwards; /* Typing animation */
+  .output {
+    flex-grow: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.5em;
   }
 
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+  .input-area {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
-  .intro-text {
+  .input-area span {
+    color: #0f0;
+  }
+
+  .input-field {
+    background: none;
+    border: none;
+    outline: none;
+    color: #0f0;
     font-size: 1em;
-    margin-bottom: 1em;
-    white-space: pre-wrap; /* Preserve line breaks and spaces */
-    animation: fadeIn 1s ease forwards;
+    flex-grow: 1;
+    caret-color: #0f0;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .cursor {
+    display: inline-block;
+    background: #0f0;
+    width: 10px;
+    height: 18px;
+    animation: blink 0.8s steps(2) infinite;
   }
 
-  .skills {
-    display: grid; /* Use grid for better layout */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
-    gap: 20px;
-    margin-top: 20px;
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
-  .skill-item {
-    text-align: center;
+  .highlight {
+    color: #fff;
+    text-shadow: 0 0 5px #0f0;
   }
 
-  .skill-icon {
-    font-size: 2em;
-    color: #0f0; /* Green icon color */
-    margin-bottom: 10px;
-  }
-
-  .skill-item p {
-    font-size: 0.9em;
-  }
-
-  .links {
-    margin-top: 20px;
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 1s;
-  }
-
-  .links a {
-    margin: 0 10px;
-    color: #0f0; /* Green link color */
+  a {
+    color: #0f0;
     text-decoration: none;
-    transition: color 0.3s;
   }
 
-  .links a:hover {
+  a:hover {
     color: #fff;
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Suraj Pokhriyal - Principal SRE</h1>
-
-    <div class="intro-text">
-      A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
-    </div>
-
-    <div class="intro-text">
-      I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. My expertise lies in designing and implementing solutions that enhance system performance, resilience, and security at scale.
-    </div>
-
-    <div class="intro-text">
-      I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. I have a proven track record of successfully implementing large-scale monitoring and automation solutions.
-    </div>
-
-    <h2>Key Skills &amp; Expertise</h2>
-    <div class="skills">
-      <div class="skill-item">
-        <i class="fab fa-python skill-icon" title="Python"></i>
-        <p><b>Python</b><br>Automation, scripting, data analysis.</p> 
-      </div>
-      <div class="skill-item">
-        <i class="fas fa-puppet skill-icon" title="Puppet"></i>
-        <p><b>Puppet</b><br>Configuration management, infrastructure automation.</p>
-      </div>
-      <div class="skill-item">
-        <i class="fas fa-chart-line skill-icon" title="OpenTelemetry"></i>
-        <p><b>OpenTelemetry</b><br>Observability and instrumentation.</p>
-      </div>
-      <div class="skill-item">
-        <i class="fas fa-fire skill-icon" title="Prometheus"></i>
-        <p><b>Prometheus</b><br>Monitoring and alerting.</p>
-      </div>
-      <div class="skill-item">
-        <i class="fas fa-database skill-icon" title="Pinot (OLAP)"></i>
-        <p><b>Pinot (OLAP)</b><br>Real-time analytics and OLAP workloads.</p>
-      </div>
-    </div>
-
-    <div class="links">
-      <a href="mailto:mail@surajpokhriyal.com">Email</a> |
-      <a href="https://github.com/yourgithubprofile" target="_blank">GitHub</a> |
-      <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank">LinkedIn</a>
+  <div class="terminal">
+    <div class="output" id="output"></div>
+    <div class="input-area">
+      <span>&gt;</span>
+      <input type="text" id="input" class="input-field" autofocus />
+      <div class="cursor"></div>
     </div>
   </div>
 
   <script>
-    // JavaScript for animation (same as before)
-    const animatedTexts = document.querySelectorAll('.intro-text');
+    const outputElement = document.getElementById('output');
+    const inputElement = document.getElementById('input');
 
-    function showText(element, index) {
-      setTimeout(() => {
-        element.classList.add('show');
-      }, index * 500); // Increased delay for a slower animation
+    const commands = {
+      about: `A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. 
+I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
+
+I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. 
+My expertise lies in designing and implementing solutions that enhance system performance, resilience, and security at scale.
+
+I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. 
+I have a proven track record of successfully implementing large-scale monitoring and automation solutions.`,
+      skills: `Key Skills:
+- Python
+- Puppet
+- OpenTelemetry
+- Prometheus
+- Pinot (OLAP)`,
+      contact: `Email: mail@surajpokhriyal.com
+GitHub: https://github.com/yourgithubprofile
+LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
+      clear: "",
+    };
+
+    inputElement.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        const input = inputElement.value.trim();
+        handleCommand(input);
+        inputElement.value = '';
+      }
+    });
+
+    function handleCommand(command) {
+      outputElement.innerHTML += `> ${command}\n`;
+      if (commands[command]) {
+        outputElement.innerHTML += `${commands[command]}\n\n`;
+      } else {
+        outputElement.innerHTML += `Command not found: ${command}\n\n`;
+      }
+      if (command === 'clear') {
+        outputElement.innerHTML = '';
+      }
+      outputElement.scrollTop = outputElement.scrollHeight;
     }
-
-    animatedTexts.forEach(showText);
   </script>
 </body>
 </html>
