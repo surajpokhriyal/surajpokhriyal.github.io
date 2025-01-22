@@ -5,53 +5,96 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
   body {
-    /* ... other styles ... */
+    font-family: 'Courier New', monospace; /* Terminal font */
+    margin: 0;
+    overflow: hidden;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text color */
   }
 
   .container {
-    /* ... other styles ... */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: left; /* Align text to the left like a terminal */
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    border: 2px solid #0f0; /* Green border like a terminal */
+    border-radius: 10px;
   }
 
   h1 {
-    font-size: 3em;
-    color: #fff; /* White text color */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Strong text shadow */
+    font-size: 2em;
     margin-bottom: 0.5em;
-    font-family: 'Impact', sans-serif; /* Bold font */
+    color: #0f0; /* Green text color for the title */
+    text-shadow: 1px 1px 2px rgba(0, 255, 0, 0.5);
+    animation: typing 2s steps(20) forwards; /* Typing animation */
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
   }
 
   .intro-text {
-    font-size: 1.2em;
-    color: #eee; /* Light text color */
-    margin-bottom: 2em;
-    animation: fadeInUp 1s ease forwards;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
-    font-family: 'Verdana', sans-serif; /* Readable font */
+    font-size: 1em;
+    margin-bottom: 1em;
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    animation: fadeIn 1s ease forwards;
   }
 
-  /* ... other styles ... */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .skills {
+    display: grid; /* Use grid for better layout */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .skill-item {
+    text-align: center;
+  }
+
+  .skill-icon {
+    font-size: 2em;
+    color: #0f0; /* Green icon color */
+    margin-bottom: 10px;
+  }
 
   .skill-item p {
-    font-size: 1em;
-    color: #333; /* Darker text color for skill descriptions */
-    font-weight: bold; /* Bold font for skill descriptions */
+    font-size: 0.9em;
   }
 
-  /* ... other styles ... */
+  .links {
+    margin-top: 20px;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1s;
+  }
 
   .links a {
-    /* ... other styles ... */
-    color: #fff; /* White link color */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow for links */
+    margin: 0 10px;
+    color: #0f0; /* Green link color */
+    text-decoration: none;
+    transition: color 0.3s;
   }
 
-  /* ... other styles ... */
+  .links a:hover {
+    color: #fff;
+  }
 </style>
 </head>
 <body>
   <div class="container">
-    <h1>Suraj Pokhriyal</h1>
-    <p class="intro-text"> Principal Site Reliability Engineer (SRE)</p>
+    <h1>Suraj Pokhriyal - Principal SRE</h1>
 
     <div class="intro-text">
       A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
@@ -65,27 +108,27 @@
       I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. I have a proven track record of successfully implementing large-scale monitoring and automation solutions.
     </div>
 
-    <h2 class="intro-text">Key Skills & Expertise</h2>
+    <h2>Key Skills &amp; Expertise</h2>
     <div class="skills">
       <div class="skill-item">
         <i class="fab fa-python skill-icon" title="Python"></i>
-        <p><b>Python</b><br>Extensive experience in automation, scripting, and data analysis using Python.</p> 
+        <p><b>Python</b><br>Automation, scripting, data analysis.</p> 
       </div>
       <div class="skill-item">
         <i class="fas fa-puppet skill-icon" title="Puppet"></i>
-        <p><b>Puppet</b><br>Proficient in configuration management and infrastructure automation with Puppet.</p>
+        <p><b>Puppet</b><br>Configuration management, infrastructure automation.</p>
       </div>
       <div class="skill-item">
         <i class="fas fa-chart-line skill-icon" title="OpenTelemetry"></i>
-        <p><b>OpenTelemetry</b><br>Deep understanding of OpenTelemetry standards for observability and instrumentation.</p>
+        <p><b>OpenTelemetry</b><br>Observability and instrumentation.</p>
       </div>
       <div class="skill-item">
         <i class="fas fa-fire skill-icon" title="Prometheus"></i>
-        <p><b>Prometheus</b><br>Expertise in using Prometheus for monitoring and alerting.</p>
+        <p><b>Prometheus</b><br>Monitoring and alerting.</p>
       </div>
       <div class="skill-item">
         <i class="fas fa-database skill-icon" title="Pinot (OLAP)"></i>
-        <p><b>Pinot (OLAP)</b><br>Experience with Pinot for real-time analytics and OLAP workloads.</p>
+        <p><b>Pinot (OLAP)</b><br>Real-time analytics and OLAP workloads.</p>
       </div>
     </div>
 
@@ -97,7 +140,16 @@
   </div>
 
   <script>
-    // ... (JavaScript is the same) ...
+    // JavaScript for animation (same as before)
+    const animatedTexts = document.querySelectorAll('.intro-text');
+
+    function showText(element, index) {
+      setTimeout(() => {
+        element.classList.add('show');
+      }, index * 500); // Increased delay for a slower animation
+    }
+
+    animatedTexts.forEach(showText);
   </script>
 </body>
 </html>
