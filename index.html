@@ -1,64 +1,161 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Suraj Pokhriyal - Principal SRE</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
-  <style>
-    /* ... (CSS is the same as the previous example) ... */
-  </style>
+<title>Suraj Pokhriyal - Principal SRE</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  body {
+    font-family: 'Arial', sans-serif; /* Choose a modern font */
+    margin: 0;
+    overflow: hidden; /* Prevent scrollbars during animation */
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    perspective: 1000px; /* For 3D effect */
+  }
+
+  h1 {
+    font-size: 3em;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5em;
+  }
+
+  .intro-text {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 2em;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .skills {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    perspective: 1000px; /* For 3D effect */
+  }
+
+  .skill-item {
+    margin: 20px;
+    transform-style: preserve-3d; /* For 3D effect */
+    transition: transform 0.5s;
+  }
+
+  .skill-item:hover {
+    transform: rotateY(15deg); /* Tilt on hover */
+  }
+
+  .skill-icon {
+    font-size: 3em;
+    color: #007bff; /* Blue color for icons */
+    margin-bottom: 10px;
+  }
+
+  .skill-item p {
+    font-size: 1em;
+    color: #333;
+  }
+
+  .links {
+    margin-top: 30px;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 1s; /* Delay animation */
+  }
+
+  .links a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s;
+  }
+
+  .links a:hover {
+    color: #007bff;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Add more styles for other elements and animations as needed */
+</style>
 </head>
 <body>
+  <div class="container">
+    <h1>Suraj Pokhriyal</h1>
+    <p class="intro-text">Senior Principal Site Reliability Engineer (SRE)</p>
 
-<div class="container">
-  <h1>Suraj Pokhriyal</h1>
-  <p class="animated-text"> Principal Site Reliability Engineer (SRE)</p>
+    <div class="intro-text">
+      A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
+    </div>
 
-  <div class="animated-text">
-    A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
+    <div class="intro-text">
+      I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. My expertise lies in designing and implementing solutions that enhance system performance, resilience, and security at scale.
+    </div>
+
+    <div class="intro-text">
+      I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. I have a proven track record of successfully implementing large-scale monitoring and automation solutions.
+    </div>
+
+    <h2 class="intro-text">Key Skills & Expertise</h2>
+    <div class="skills">
+      <div class="skill-item">
+        <i class="fab fa-python skill-icon" title="Python"></i>
+        <p><b>Python</b><br>Extensive experience in automation, scripting, and data analysis using Python.</p> 
+      </div>
+      <div class="skill-item">
+        <i class="fas fa-puppet skill-icon" title="Puppet"></i>
+        <p><b>Puppet</b><br>Proficient in configuration management and infrastructure automation with Puppet.</p>
+      </div>
+      <div class="skill-item">
+        <i class="fas fa-chart-line skill-icon" title="OpenTelemetry"></i>
+        <p><b>OpenTelemetry</b><br>Deep understanding of OpenTelemetry standards for observability and instrumentation.</p>
+      </div>
+      <div class="skill-item">
+        <i class="fas fa-fire skill-icon" title="Prometheus"></i>
+        <p><b>Prometheus</b><br>Expertise in using Prometheus for monitoring and alerting.</p>
+      </div>
+      <div class="skill-item">
+        <i class="fas fa-database skill-icon" title="Pinot (OLAP)"></i>
+        <p><b>Pinot (OLAP)</b><br>Experience with Pinot for real-time analytics and OLAP workloads.</p>
+      </div>
+    </div>
+
+    <div class="links">
+      <a href="mailto:mail@surajpokhriyal.com">Email</a> |
+      <a href="https://github.com/yourgithubprofile" target="_blank">GitHub</a> |
+      <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank">LinkedIn</a>
+    </div>
   </div>
 
-  <div class="animated-text">
-    I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. My expertise lies in designing and implementing solutions that enhance system performance, resilience, and security at scale.
-  </div>
+  <script>
+    // JavaScript for animation (same as before)
+    const animatedTexts = document.querySelectorAll('.animated-text');
 
-  <div class="animated-text">
-    I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. I have a proven track record of successfully implementing large-scale monitoring and automation solutions.
-  </div>
+    function showText(element, index) {
+      setTimeout(() => {
+        element.classList.add('show');
+      }, index * 300); 
+    }
 
-  <h2 class="animated-text">Key Skills & Expertise</h2>
-  <div class="skills">
-    <div class="skill-item">
-      <i class="fab fa-python skill-icon" title="Python"></i>
-      <p><b>Python</b><br>Extensive experience in automation, scripting, and data analysis using Python.</p> 
-    </div>
-    <div class="skill-item">
-      <i class="fas fa-puppet skill-icon" title="Puppet"></i>
-      <p><b>Puppet</b><br>Proficient in configuration management and infrastructure automation with Puppet.</p>
-    </div>
-    <div class="skill-item">
-      <i class="fas fa-chart-line skill-icon" title="OpenTelemetry"></i>
-      <p><b>OpenTelemetry</b><br>Deep understanding of OpenTelemetry standards for observability and instrumentation.</p>
-    </div>
-    <div class="skill-item">
-      <i class="fas fa-fire skill-icon" title="Prometheus"></i>
-      <p><b>Prometheus</b><br>Expertise in using Prometheus for monitoring and alerting.</p>
-    </div>
-    <div class="skill-item">
-      <i class="fas fa-database skill-icon" title="Pinot (OLAP)"></i>
-      <p><b>Pinot (OLAP)</b><br>Experience with Pinot for real-time analytics and OLAP workloads.</p>
-    </div>
-  </div>
-
-  <div class="links">
-    <a href="mailto:mail@surajpokhriyal.com">Email</a> |
-    <a href="https://github.com/yourgithubprofile" target="_blank">GitHub</a> |
-    <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank">LinkedIn</a>
-  </div>
-</div>
-
-<script>
-// ... (JavaScript is the same) ...
-</script>
-
+    animatedTexts.forEach(showText);
+  </script>
 </body>
 </html>
