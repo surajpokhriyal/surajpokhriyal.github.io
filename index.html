@@ -16,15 +16,12 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      width: 90%;
-      max-width: 800px;
-      margin: 5vh auto;
+      width: 100vw;
+      height: 100vh;
       padding: 20px;
       background: rgba(0, 0, 0, 0.9);
       border: 2px solid #0f0;
-      border-radius: 8px;
-      height: 70vh;
-      box-shadow: 0 0 10px #0f0;
+      box-sizing: border-box;
       overflow: hidden;
     }
 
@@ -33,6 +30,7 @@
       overflow-y: auto;
       white-space: pre-wrap;
       line-height: 1.5em;
+      font-size: 1rem; /* Readable text size */
     }
 
     .input-area {
@@ -68,11 +66,6 @@
       50% { opacity: 0; }
     }
 
-    .highlight {
-      color: #fff;
-      text-shadow: 0 0 5px #0f0;
-    }
-
     a {
       color: #0f0;
       text-decoration: none;
@@ -97,35 +90,56 @@
     const outputElement = document.getElementById('output');
     const inputElement = document.getElementById('input');
 
+    const asciiArt = `
+                                    __                   __    .__             .__                 .__   
+  ______ __ __ _______ _____       |__| ______    ____  |  | __|  |__  _______ |__| ___.__._____   |  |  
+ /  ___/|  |  \\_  __ \\__  \      |  | \____ \  /  _ \ |  |/ /|  |  \ \_  __ \|  |<   |  |\__  \  |  |  
+ \___ \ |  |  / |  | \/ / __ \_    |  | |  |_> >(  <_> )|    < |   Y  \ |  | \/|  | \___  | / __ \_|  |__
+/____  >|____/  |__|   (____  //\__|  | |   __/  \____/ |__|_ \|___|  / |__|   |__| / ____|(____  /|____/
+     \/                     \/ \______| |__|                 \/     \/              \/          \/      
+                                                                                             
+ Welcome to Suraj Pokhriyal's Personal Terminal!
+
+ About:
+ A highly experienced SRE leader passionate about building reliable, observable, and secure systems.
+
+ Skills:
+ - Python        : Automation, Scripting, Data Analysis
+ - Puppet        : Configuration Management
+ - Prometheus    : Monitoring & Alerting
+ - OpenTelemetry : Observability Metrics
+ - Pinot (OLAP)  : Real-time Analytics
+
+ Contact:
+ Email    : mail@surajpokhriyal.com
+ LinkedIn : https://www.linkedin.com/in/yourlinkedinprofile
+ GitHub   : https://github.com/yourgithubprofile
+
+ Type a command (about, skills, contact, clear) for interactivity.
+`;
+
     const commands = {
-      about: `A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. 
-I drive innovation and efficiency through automation, best practices, and a deep understanding of cloud-native technologies.
-
-I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. 
-My expertise lies in designing and implementing solutions that enhance system performance, resilience, and security at scale.
-
-I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability. 
-I have a proven track record of successfully implementing large-scale monitoring and automation solutions.`,
-      skills: `Key Skills:
-- Python
-- Puppet
-- OpenTelemetry
-- Prometheus
-- Pinot (OLAP)`,
-      contact: `Email: mail@surajpokhriyal.com
-GitHub: https://github.com/yourgithubprofile
-LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
+      about: `
+About:
+A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems.
+I excel at leading complex initiatives, mentoring engineers, and fostering collaboration and continuous improvement.
+      `,
+      skills: `
+Skills:
+- Python        : Automation, Scripting, Data Analysis
+- Puppet        : Configuration Management
+- Prometheus    : Monitoring & Alerting
+- OpenTelemetry : Observability Metrics
+- Pinot (OLAP)  : Real-time Analytics
+      `,
+      contact: `
+Contact:
+Email    : mail@surajpokhriyal.com
+LinkedIn : https://www.linkedin.com/in/yourlinkedinprofile
+GitHub   : https://github.com/yourgithubprofile
+      `,
       clear: "",
     };
-
-    const asciiArt = `
-███████╗██╗   ██╗██████╗  █████╗      ██████╗ ██████╗ ██╗  ██╗███████╗██╗   ██╗██╗██╗     
-██╔════╝██║   ██║██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗██║ ██╔╝██╔════╝██║   ██║██║██║     
-█████╗  ██║   ██║██████╔╝███████║    ██║     ██║   ██║█████╔╝ █████╗  ██║   ██║██║██║     
-██╔══╝  ██║   ██║██╔═══╝ ██╔══██║    ██║     ██║   ██║██╔═██╗ ██╔══╝  ██║   ██║██║██║     
-██║     ╚██████╔╝██║     ██║  ██║    ╚██████╗╚██████╔╝██║  ██╗███████╗╚██████╔╝██║███████╗
-╚═╝      ╚═════╝ ╚═╝     ╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝
-`;
 
     function autoTypeText(text, callback) {
       let i = 0;
@@ -133,7 +147,7 @@ LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
         if (i < text.length) {
           outputElement.innerHTML += text[i++];
           outputElement.scrollTop = outputElement.scrollHeight;
-          setTimeout(type, 50);
+          setTimeout(type, 3); // Typing speed increased (3ms per character)
         } else if (callback) {
           callback();
         }
@@ -142,36 +156,29 @@ LinkedIn: https://www.linkedin.com/in/yourlinkedinprofile`,
     }
 
     function displayDefaultContent() {
-      outputElement.innerHTML = `${asciiArt}\n`;
-      autoTypeText(`> about\n${commands.about}\n\n`, () => {
-        autoTypeText(`> skills\n${commands.skills}\n\n`, () => {
-          autoTypeText(`> contact\n${commands.contact}\n\nType a command (about, skills, contact, clear) for interactivity.\n`);
-        });
-      });
+      outputElement.innerHTML = "";
+      autoTypeText(asciiArt);
     }
 
-    inputElement.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
+    inputElement.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
         const input = inputElement.value.trim();
         handleCommand(input);
-        inputElement.value = '';
+        inputElement.value = "";
       }
     });
 
     function handleCommand(command) {
-      outputElement.innerHTML += `> ${command}\n`;
+      outputElement.innerHTML += `\n> ${command}\n`;
       if (commands[command]) {
-        outputElement.innerHTML += `${commands[command]}\n\n`;
+        outputElement.innerHTML += `${commands[command]}\n`;
       } else {
-        outputElement.innerHTML += `Command not found: ${command}\n\n`;
-      }
-      if (command === 'clear') {
-        outputElement.innerHTML = '';
+        outputElement.innerHTML += `Command not found: ${command}\n`;
       }
       outputElement.scrollTop = outputElement.scrollHeight;
     }
 
-    // Display the default content with animation on load
+    // Display default content with animation
     displayDefaultContent();
   </script>
 </body>
