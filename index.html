@@ -1,175 +1,893 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Suraj Pokhriyal - Matrix Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Suraj Pokhriyal - SRE Leader</title>
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    
     <style>
-        body {
-            margin: 0;
-            background: black;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            overflow: hidden;
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
-        #matrix-bg {
+        :root {
+            --primary: #00ff00;
+            --primary-dim: #00aa00;
+            --bg: #000000;
+            --card-bg: rgba(0, 20, 0, 0.85);
+            --border: #00ff00;
+            --text: #00ff00;
+            --text-dim: #008800;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Consolas, monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Optimized Matrix Background - uses CSS animation instead of heavy canvas */
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
+            overflow: hidden;
+            opacity: 0.15;
         }
 
-        .content {
-            padding: 2rem;
-            max-width: 800px;
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-size: 14px;
+            line-height: 1;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+            animation: matrix-fall linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes matrix-fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(200vh); }
+        }
+
+        /* Navigation Tabs */
+        .nav-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            padding: 1rem 0;
+            text-decoration: none;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            color: var(--primary-dim);
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            color: var(--primary);
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .nav-tab::before {
+            content: '> ';
             opacity: 0;
-            animation: fadeIn 2s forwards;
+            transition: opacity 0.2s;
+        }
+
+        .nav-tab:hover::before,
+        .nav-tab.active::before {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 60px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Portfolio Styles */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin: 0 0 0.5rem 0;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .hero .tagline {
+            color: var(--primary-dim);
+            font-size: 1.1rem;
+            margin: 0;
         }
 
         .section {
             margin: 2rem 0;
-            padding: 1rem;
-            border: 1px solid #00ff00;
-            transform: translateY(50px);
-            opacity: 0;
-            animation: slideUp 1s forwards;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            border-radius: 4px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            text-shadow: 0 0 10px #00ff00;
+        .section h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h2::before {
+            content: '//';
+            color: var(--text-dim);
+        }
+
+        .section p {
+            margin: 0;
+            color: var(--primary-dim);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .skill-item span {
+            font-size: 0.9rem;
         }
 
         .skill-bar {
+            height: 8px;
             background: #003300;
-            height: 20px;
-            margin: 10px 0;
-            position: relative;
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .skill-progress {
-            background: #00ff00;
             height: 100%;
-            width: 0;
-            animation: fillBar 1.5s forwards;
+            background: linear-gradient(90deg, var(--primary-dim), var(--primary));
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Contact Links */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .contact-link {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 1px solid #00ff00;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--border);
+            color: var(--primary);
             text-decoration: none;
-            color: #00ff00;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
+            border-radius: 4px;
         }
 
         .contact-link:hover {
-            background: #00ff00;
-            color: black;
-            box-shadow: 0 0 20px #00ff00;
+            background: var(--primary);
+            color: var(--bg);
+            box-shadow: 0 0 15px var(--primary);
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        /* Calculator Styles */
+        .calc-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 1.5rem;
         }
 
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
+        .calc-panel {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .calc-panel h2 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.2rem;
+            color: var(--primary);
+            border-bottom: 1px solid #003300;
+            padding-bottom: 0.75rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .value-badge {
+            background: #003300;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: inherit;
+        }
+
+        /* Custom Range Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #003300;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--primary);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: #001a00;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #003300;
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .metric-value.highlight {
+            color: #00ff88;
+        }
+
+        .chart-container {
+            height: 350px;
+            position: relative;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            border-top: 1px solid #003300;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .calc-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                padding: 0.5rem 1rem;
+            }
+
+            .logo {
+                padding: 0.5rem 0;
+            }
+
+            .nav-tabs {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
             }
         }
 
-        @keyframes fillBar {
-            to { width: 100%; }
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .matrix-column {
+                display: none;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .matrix-bg, .nav-header { display: none; }
+            body { background: white; color: black; }
+            .section { border-color: #ccc; }
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
-    <div class="content">
-        <h1>Suraj Pokhriyal</h1>
-        
-        <div class="section">
-            <h2>About</h2>
-            <p>A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability.</p>
+    <!-- Lightweight CSS-based Matrix Background -->
+    <div class="matrix-bg" id="matrixBg" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header class="nav-header">
+        <nav class="nav-container" role="navigation" aria-label="Main navigation">
+            <a href="#" class="logo" aria-label="Home">SP://</a>
+            <div class="nav-tabs" role="tablist">
+                <button class="nav-tab active" role="tab" aria-selected="true" aria-controls="portfolio" data-tab="portfolio">Portfolio</button>
+                <button class="nav-tab" role="tab" aria-selected="false" aria-controls="calculator" data-tab="calculator">Wealth Calculator</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Portfolio Tab -->
+        <div id="portfolio" class="tab-content active" role="tabpanel" aria-labelledby="portfolio-tab">
+            <div class="hero">
+                <h1>Suraj Pokhriyal</h1>
+                <p class="tagline">Site Reliability Engineering Leader</p>
+            </div>
+
+            <section class="section">
+                <h2>About</h2>
+                <p>A highly experienced SRE leader with a passion for building and scaling reliable, observable, and secure systems. I excel at leading complex initiatives, mentoring engineers, and fostering a culture of collaboration and continuous improvement. I am a strong advocate for OpenTelemetry and MELT (Metrics, Events, Logs, Traces) to achieve comprehensive observability.</p>
+            </section>
+
+            <section class="section">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <span>Python</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Puppet</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Prometheus</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>OpenTelemetry</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Pinot (OLAP)</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Kubernetes</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Contact</h2>
+                <div class="contact-links">
+                    <a href="mailto:mail@surajpokhriyal.com" class="contact-link" rel="noopener">
+                        <span>📧</span> Email
+                    </a>
+                    <a href="https://linkedin.com" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <span>💼</span> LinkedIn
+                    </a>
+                    <a href="https://github.com" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <span>🔗</span> GitHub
+                    </a>
+                </div>
+            </section>
         </div>
 
-        <div class="section">
-            <h2>Skills</h2>
-            <div class="skill-item">
-                <p>Python</p>
-                <div class="skill-bar"><div class="skill-progress"></div></div>
+        <!-- Calculator Tab -->
+        <div id="calculator" class="tab-content" role="tabpanel" aria-labelledby="calculator-tab">
+            <div class="hero">
+                <h1>Wealth Calculator</h1>
+                <p class="tagline">Plan your financial future with real purchasing power calculations</p>
             </div>
-            <div class="skill-item">
-                <p>Puppet</p>
-                <div class="skill-bar"><div class="skill-progress"></div></div>
-            </div>
-            <div class="skill-item">
-                <p>Prometheus</p>
-                <div class="skill-bar"><div class="skill-progress"></div></div>
-            </div>
-            <div class="skill-item">
-                <p>OpenTelemetry</p>
-                <div class="skill-bar"><div class="skill-progress"></div></div>
-            </div>
-            <div class="skill-item">
-                <p>Pinot (OLAP)</p>
-                <div class="skill-bar"><div class="skill-progress"></div></div>
-            </div>
-        </div>
 
-        <div class="section">
-            <h2>Contact</h2>
-            <a href="mailto:mail@surajpokhriyal.com" class="contact-link">Email</a>
-            <a href="#" class="contact-link">LinkedIn</a>
-            <a href="#" class="contact-link">GitHub</a>
+            <div class="calc-container">
+                <div class="calc-panel">
+                    <h2>⚙ Parameters</h2>
+                    
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="corpus">Initial Corpus (INR)</label>
+                            <span class="value-badge" id="val-corpus">₹3 Cr</span>
+                        </div>
+                        <input type="range" id="corpus" min="0" max="1000000000" step="5000000" value="30000000" aria-describedby="val-corpus">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="invest">Monthly Investment (INR)</label>
+                            <span class="value-badge" id="val-invest">₹0k</span>
+                        </div>
+                        <input type="range" id="invest" min="0" max="1000000" step="5000" value="0" aria-describedby="val-invest">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="returnRate">Annual Return (%)</label>
+                            <span class="value-badge" id="val-return">12%</span>
+                        </div>
+                        <input type="range" id="returnRate" min="1" max="30" step="0.5" value="12" aria-describedby="val-return">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="inflation">Inflation Rate (%)</label>
+                            <span class="value-badge" id="val-inflation">8%</span>
+                        </div>
+                        <input type="range" id="inflation" min="0" max="15" step="0.1" value="8" aria-describedby="val-inflation">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="label-row">
+                            <label for="years">Time Horizon (Years)</label>
+                            <span class="value-badge" id="val-years">30 Years</span>
+                        </div>
+                        <input type="range" id="years" min="1" max="100" step="1" value="30" aria-describedby="val-years">
+                    </div>
+                </div>
+
+                <div class="calc-panel">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Real Return Rate</div>
+                            <div class="metric-value" id="res-real-rate">3.70%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Future Nominal Value</div>
+                            <div class="metric-value" id="res-nominal">₹0 Cr</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Today's Purchasing Power</div>
+                            <div class="metric-value highlight" id="res-real-value">₹0 Cr</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="growthChart" aria-label="Wealth growth projection chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Suraj Pokhriyal. Built with security in mind.</p>
+    </footer>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <script>
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
+        // Strict mode for security
+        'use strict';
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Global chart reference
+        let chart = null;
+        let chartReady = false;
 
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const fontSize = 14;
-        const columns = canvas.width/fontSize;
-        const drops = [];
-
-        for(let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initMatrix();
+            initTabs();
+            initCalculator();
+            document.getElementById('year').textContent = new Date().getFullYear();
             
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
+            // Check if Chart.js is loaded
+            if (typeof Chart !== 'undefined') {
+                chartReady = true;
+            }
+        });
 
-            for(let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        // Lightweight Matrix Background Generator
+        function initMatrix() {
+            const container = document.getElementById('matrixBg');
+            if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789₹%';
+            const columnCount = Math.floor(window.innerWidth / 25);
+            
+            for (let i = 0; i < columnCount; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i * 25) + 'px';
+                column.style.animationDuration = (3 + Math.random() * 4) + 's';
+                column.style.animationDelay = (Math.random() * 5) + 's';
                 
-                if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
-                    drops[i] = 0;
-                drops[i]++;
+                let text = '';
+                const length = 15 + Math.floor(Math.random() * 20);
+                for (let j = 0; j < length; j++) {
+                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                container.appendChild(column);
             }
         }
 
-        setInterval(draw, 33);
+        // Tab Navigation
+        function initTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-tab');
+                    
+                    tabs.forEach(function(t) {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    this.classList.add('active');
+                    this.setAttribute('aria-selected', 'true');
+
+                    contents.forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+
+                    // Initialize chart when calculator tab is shown
+                    if (targetId === 'calculator') {
+                        setTimeout(function() {
+                            calculate();
+                        }, 150);
+                    }
+                });
+            });
+        }
+
+        // Calculator Initialization
+        function initCalculator() {
+            // Get all range inputs in calculator
+            const corpusInput = document.getElementById('corpus');
+            const investInput = document.getElementById('invest');
+            const returnInput = document.getElementById('returnRate');
+            const inflationInput = document.getElementById('inflation');
+            const yearsInput = document.getElementById('years');
+
+            // Add event listeners to each input
+            if (corpusInput) {
+                corpusInput.addEventListener('input', function() {
+                    updateValues();
+                    calculate();
+                });
+            }
+            if (investInput) {
+                investInput.addEventListener('input', function() {
+                    updateValues();
+                    calculate();
+                });
+            }
+            if (returnInput) {
+                returnInput.addEventListener('input', function() {
+                    updateValues();
+                    calculate();
+                });
+            }
+            if (inflationInput) {
+                inflationInput.addEventListener('input', function() {
+                    updateValues();
+                    calculate();
+                });
+            }
+            if (yearsInput) {
+                yearsInput.addEventListener('input', function() {
+                    updateValues();
+                    calculate();
+                });
+            }
+
+            // Initial value display update
+            updateValues();
+        }
+
+        // Format currency
+        function formatCr(val) {
+            if (val >= 10000000) return '₹' + (val / 10000000).toFixed(2) + ' Cr';
+            if (val >= 100000) return '₹' + (val / 100000).toFixed(2) + ' L';
+            return '₹' + Math.round(val).toLocaleString('en-IN');
+        }
+
+        // Update displayed values (badges)
+        function updateValues() {
+            const P = parseFloat(document.getElementById('corpus').value) || 0;
+            const PMT = parseFloat(document.getElementById('invest').value) || 0;
+            const i_nom = parseFloat(document.getElementById('returnRate').value) || 12;
+            const infl = parseFloat(document.getElementById('inflation').value) || 8;
+            const years = parseInt(document.getElementById('years').value) || 30;
+
+            document.getElementById('val-corpus').textContent = formatCr(P);
+            document.getElementById('val-invest').textContent = '₹' + Math.round(PMT / 1000) + 'k';
+            document.getElementById('val-return').textContent = i_nom.toFixed(1) + '%';
+            document.getElementById('val-inflation').textContent = infl.toFixed(1) + '%';
+            document.getElementById('val-years').textContent = years + ' Years';
+        }
+
+        // Main calculation function
+        function calculate() {
+            // Check if Chart.js is available
+            if (typeof Chart === 'undefined') {
+                console.log('Chart.js not loaded yet');
+                return;
+            }
+
+            // Get input values
+            const P = parseFloat(document.getElementById('corpus').value) || 0;
+            const PMT = parseFloat(document.getElementById('invest').value) || 0;
+            const i_nom = (parseFloat(document.getElementById('returnRate').value) || 12) / 100;
+            const infl = (parseFloat(document.getElementById('inflation').value) || 8) / 100;
+            const years = parseInt(document.getElementById('years').value) || 30;
+
+            // Calculate real rate (Fisher Equation)
+            const r_real = ((1 + i_nom) / (1 + infl)) - 1;
+            document.getElementById('res-real-rate').textContent = (r_real * 100).toFixed(2) + '%';
+
+            const labels = [];
+            const realData = [];
+            const nominalData = [];
+
+            for (let t = 0; t <= years; t++) {
+                labels.push('Yr ' + t);
+                
+                let fv_real;
+                if (Math.abs(r_real) < 0.0001) {
+                    fv_real = P + (PMT * 12 * t);
+                } else {
+                    fv_real = P * Math.pow(1 + r_real, t) + 
+                              (PMT * 12) * ((Math.pow(1 + r_real, t) - 1) / r_real);
+                }
+                
+                realData.push(parseFloat((fv_real / 10000000).toFixed(2)));
+                
+                const fv_nom = fv_real * Math.pow(1 + infl, t);
+                nominalData.push(parseFloat((fv_nom / 10000000).toFixed(2)));
+            }
+
+            // Update summary metrics
+            const finalReal = realData[realData.length - 1];
+            const finalNominal = nominalData[nominalData.length - 1];
+            
+            document.getElementById('res-real-value').textContent = '₹' + finalReal.toLocaleString('en-IN', {maximumFractionDigits: 2}) + ' Cr';
+            document.getElementById('res-nominal').textContent = '₹' + Math.round(finalNominal).toLocaleString('en-IN') + ' Cr';
+
+            // Update chart
+            updateChart(labels, realData, nominalData);
+        }
+
+        function updateChart(labels, realData, nominalData) {
+            const canvas = document.getElementById('growthChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
+            // Destroy existing chart
+            if (chart) {
+                chart.destroy();
+                chart = null;
+            }
+
+            // Create new chart
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Today's Purchasing Power (₹ Cr)",
+                            data: realData,
+                            borderColor: '#00ff00',
+                            backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'Nominal Value (₹ Cr)',
+                            data: nominalData,
+                            borderColor: '#00aa88',
+                            backgroundColor: 'rgba(0, 170, 136, 0.05)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 5,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 200
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#00ff00',
+                                font: { family: "'Courier New', monospace" }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(0, 30, 0, 0.95)',
+                            titleColor: '#00ff00',
+                            bodyColor: '#00cc00',
+                            borderColor: '#00ff00',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Value in Crores (₹)',
+                                color: '#00ff00'
+                            },
+                            grid: { color: 'rgba(0, 255, 0, 0.1)' },
+                            ticks: { color: '#00aa00' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(0, 255, 0, 0.1)' },
+                            ticks: {
+                                color: '#00aa00',
+                                maxTicksLimit: 15
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
